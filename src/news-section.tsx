@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { List, Grid2X2, Grid3X3, Search, Filter } from "lucide-react"; // use icon library like lucide
 import NewsCard from "./news-card";
@@ -16,13 +16,12 @@ interface FilterOption {
   source?: string;
 }
 
-export default function NewsSection({ title, articles }: NewsSectionProps) {
+export default function NewsSection({ articles }: NewsSectionProps) {
   const [visibleCount, setVisibleCount] = useState(12);
   const [showOptions, setShowOptions] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
   const [columns, setColumns] = useState(1); // default to 3-column view
   const [filteredArticles, setVisibleArticles] = useState(articles);
-  const [sortAscend, setSortAscend] = useState(false)
   const [filters, setFilters] = useState<FilterOption>({});
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -40,6 +39,7 @@ export default function NewsSection({ title, articles }: NewsSectionProps) {
     if (hasValidFields(updatedFilter)) {
       filterArticles(updatedFilter)
     }
+    console.log(filters)
     // console.log("Updated Filters:", updatedFilter); // debugging
   };
 

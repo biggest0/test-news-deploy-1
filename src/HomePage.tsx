@@ -1,5 +1,5 @@
 // app/page.tsx (Home Page)
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 // Import the icon
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
 

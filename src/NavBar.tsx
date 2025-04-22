@@ -1,5 +1,5 @@
 // components/NavBar.tsx
-import { Search, User } from "lucide-react";
+import { User } from "lucide-react";
 
 export default function NavBar() {
   return (

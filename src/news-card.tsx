@@ -1,5 +1,5 @@
 // components/NewsCard.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 
 interface NewsCardProps {
   title: string;
