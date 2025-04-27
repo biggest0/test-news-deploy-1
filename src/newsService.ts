@@ -9,6 +9,7 @@ export interface Article {
   subCategory?: string[];
   date?: string;
   source?: string;
+  clickedCount?: number;
 }
 
 // Get all articles

@@ -10,7 +10,8 @@
             "Tariffs"
         ],
         "date": "2025-04-13",
-        "source": "Test1"
+        "source": "Test1",
+        "count": 12
     },
     {
         "title": "Tariffs, Tantrums & Truth Social: The Trump 2025 Variety Hour",
@@ -23,7 +24,8 @@
             "Tariffs"
         ],
         "date": "2025-04-02",
-        "source": "Test2"
+        "source": "Test2",
+        "count": 8
     },
     {
         "title": "Zuckerberg May Be Forced to Break Up the Band: Instagram and WhatsApp Face Solo Careers",
@@ -36,7 +38,8 @@
             "Tariffs"
         ],
         "date": "2025-04-13",
-        "source": "Test3"
+        "source": "Test3",
+        "count": 4
     },
     {
         "title": "The Great AI Debate: Are We Ready for a Robot Apocalypse or Just a Really Smart Toaster?",
@@ -48,7 +51,8 @@
             "Logistics",
             "Tariffs"
         ],
-        "date": "2025-04-13"
+        "date": "2025-04-13",
+        "count": 4
     },
     {
         "title": "Lanzarote Accidentally Becomes Atlantis for a Night",
@@ -61,7 +65,8 @@
             "Tariffs"
         ],
         "date": "2025-04-13",
-        "source": "Test2"
+        "source": "Test2",
+        "count": 1
     },
     {
         "title": "Gabon Discovers New Political Sport: Win by 90% and Call It a Contest",
@@ -74,7 +79,8 @@
             "Tariffs"
         ],
         "date": "2025-04-13",
-        "source": "Test2"
+        "source": "Test2",
+        "count": 1
     },
     {
         "title": "Czech Billionaire Buys Royal Mail, Promises to Deliver... Eventually",
@@ -87,7 +93,8 @@
             "Tariffs"
         ],
         "date": "2025-04-14",
-        "source": "Test2"
+        "source": "Test2",
+        "count": 1
     },
     {
         "title": "Trump Moves Electronics to New 'Tariff Bucket', China Rolls Eyes Hard Enough to Trigger Earthquake",
@@ -100,7 +107,8 @@
             "Tariffs"
         ],
         "date": "2025-04-14",
-        "source": "Test5"
+        "source": "Test5",
+        "count": 1
     },
     {
         "title": "Trump Declares War on Canadian Cars, Detroit Wonders If He Knows They're Also His Cars",

@@ -3,17 +3,20 @@ import { useState } from "react";
 
 interface NewsCardProps {
   title: string;
+  subCategory: string[];
   body: string;
   longBody?: string;
   date: string;
 }
 
-export default function NewsCard({ title, body, longBody, date }: NewsCardProps) {
+export default function NewsCard({ title, subCategory, body, longBody, date }: NewsCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <div className="flex flex-col justify-between h-64 shadow-[0_2px_4px_rgba(0,0,0,0.05)] border-b border-gray-200 px-4 py-4 w-full">
       <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+
+      <div><span className="text-gray-500 text-xs">{subCategory ? subCategory.join(' - ') : ''}</span></div>
 
       <div className="flex-1 flex items-center justify-center overflow-hidden h-36">
         <div className="text-sm text-gray-700 overflow-y-auto max-h-24">

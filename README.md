@@ -68,3 +68,17 @@ export default tseslint.config({
 - create mock data for top news reads, add ranking in top left corner
 - figure out color and font size for overall website
 - filter option for most popular
+1. update popular section to display articles with most count
+1. add disclaimer message right after the top bar (DONE)
+2. instead of body text, just an image of the cat with the title, if article talkes about a person and there is cat persona, use that if not use cat for the category
+3. create a cat page that introduces the cats, a timeline of cats being born and what they are LOL
+
+
+# Cat names
+- Mewton
+- Cat Man
+- 
+
+
+# display most popular 4
+- base on count, pop the last one, 

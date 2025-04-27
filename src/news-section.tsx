@@ -19,11 +19,14 @@ interface FilterOption {
 export default function NewsSection({ articles }: NewsSectionProps) {
   const [visibleCount, setVisibleCount] = useState(12);
   const [showOptions, setShowOptions] = useState(false);
+  const [showSearchFlag, setSearchFlag] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
-  const [columns, setColumns] = useState(1); // default to 3-column view
-  const [filteredArticles, setVisibleArticles] = useState(articles);
+  const [columns, setColumns] = useState(1);
+  const [filteredArticles, setVisibleArticles] = useState<Article[]>([]);
   const [filters, setFilters] = useState<FilterOption>({});
-
+  // console.log(1, JSON.parse(JSON.stringify(articles)))
+  // console.log(2, JSON.parse(JSON.stringify(filteredArticles)))
+  
   const containerRef = useRef<HTMLDivElement | null>(null);
   const toggleRef = useRef<HTMLDivElement | null>(null);
 
@@ -32,7 +35,15 @@ export default function NewsSection({ articles }: NewsSectionProps) {
   };
 
   const visibleArticles = filteredArticles.slice(0, visibleCount);
+  // console.log(3, visibleArticles)
   const hasMore = visibleCount < articles.length;
+
+  useEffect(() => {
+    // only reset if no filters applied
+    if (!hasValidFields(filters)) {
+      setVisibleArticles(articles);
+    }
+  }, [articles]);
 
   const handleFilterChange = (updatedFilter: FilterOption) => {
     setFilters(updatedFilter);
@@ -53,6 +64,7 @@ export default function NewsSection({ articles }: NewsSectionProps) {
   // filter: date, news source
   // search: match words of various weights
   const filterArticles = (filterOption: FilterOption): void => {
+    console.log('filtering')
     let filteredArticles = [...articles];
     // sort by date
     if (filterOption.dateAscending !== undefined) {
@@ -89,6 +101,24 @@ export default function NewsSection({ articles }: NewsSectionProps) {
     setVisibleArticles(filteredArticles);
   }
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    let filteredArticles = [...articles]
+    if (value.length > 0) {
+      filteredArticles = filteredArticles.filter((article: Article) =>
+        article.title?.toLowerCase().includes(value.toLowerCase()) ||
+        article.body.toLowerCase().includes(value.toLowerCase()) ||
+        article.longBody?.toLowerCase().includes(value.toLowerCase()) ||
+        article.category?.toLowerCase().includes(value.toLowerCase()) ||
+        article.subCategory?.some(sub => sub.toLowerCase().includes(value.toLowerCase()))
+      );
+      console.log('filtered', filteredArticles)
+      setVisibleArticles(filteredArticles);
+    } else {
+      setVisibleArticles(articles)
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (
@@ -112,6 +142,7 @@ export default function NewsSection({ articles }: NewsSectionProps) {
       ) {
         setShowOptions(false);
         setShowFilterOptions(false);
+        setSearchFlag(false);
       }
     };
 
@@ -123,10 +154,14 @@ export default function NewsSection({ articles }: NewsSectionProps) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
+    if (showSearchFlag) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showOptions, showFilterOptions]);
+  }, [showOptions, showFilterOptions, showSearchFlag]);
 
   const getGridClass = () => {
     switch (columns) {
@@ -163,6 +198,11 @@ export default function NewsSection({ articles }: NewsSectionProps) {
           {/* Search button */}
           <button
             className="p-2 border rounded hover:bg-gray-100"
+            onClick={()=> {setSearchFlag((prev) => !prev)
+              setShowOptions(false)
+              setShowFilterOptions(false)
+            }
+            }
           >
             <Search className="w-5 h-5 hover:text-black cursor-pointer"></Search>
           </button>
@@ -174,6 +214,8 @@ export default function NewsSection({ articles }: NewsSectionProps) {
               // filterArticles(filters)
               // setSortAscend(!sortAscend)
               setShowFilterOptions(prev => !prev)
+              setShowOptions(false)
+              setSearchFlag(false)
             }}
           >
             <Filter className="w-5 h-5 hover:text-black cursor-pointer"></Filter>
@@ -181,13 +223,31 @@ export default function NewsSection({ articles }: NewsSectionProps) {
 
           {/* Grid button */}
           <button
-            onClick={() => setShowOptions((prev) => !prev)}
+            onClick={() => {setShowOptions((prev) => !prev)
+              setShowFilterOptions(false)
+              setSearchFlag(false)
+            }}
             className="p-2 border rounded hover:bg-gray-100"
           >
             {getActiveIcon()}
           </button>
 
-          {/* Filter options */}
+          {/* Search popup */}
+          {showSearchFlag && (
+            <div className="absolute top-full mt-2 right-0 bg-white shadow-md rounded p-2 flex flex-col gap-2 border z-20 w-72">
+              <div className="text-black flex items-center space-x-4">
+                <label htmlFor="source" className="w-24">Search</label>
+                <input
+                  type="text"
+                  id="search"
+                  className="bg-gray-100 px-2 py-1 rounded flex-1"
+                  onChange={handleSearchChange}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Filter popup options */}
           {showFilterOptions && (
             <FilterOptions onChange={handleFilterChange}/>
           )}
@@ -220,6 +280,7 @@ export default function NewsSection({ articles }: NewsSectionProps) {
           <NewsCard
             key={index}
             title={`${article.title ?? ""}`}
+            subCategory={article.subCategory ?? []}
             body={article.body}
             longBody={article.longBody}
             date={article.date ?? ""}

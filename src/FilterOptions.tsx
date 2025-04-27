@@ -13,9 +13,9 @@ interface FilterOptionsProps {
 function FilterOptions({ onChange }: FilterOptionsProps) {
   const [inputValue, setInputValue] = useState("");
   const [filter, setFilter] = useState<FilterOption>({
-    dateAscending: false,
+    dateAscending: true,
     subCategory: [],
-    source: '',
+    source: "",
   });
 
   const updateFilter = (newFilter: FilterOption) => {
@@ -52,15 +52,39 @@ function FilterOptions({ onChange }: FilterOptionsProps) {
 
   return (
     <div className="absolute top-full mt-2 right-0 bg-white shadow-md rounded p-2 flex flex-col gap-2 border z-20 w-72">
+      <div className="flex flex-row justify-between">
       {/* Sort by latest */}
-      <div className="text-black flex items-center space-x-4">
-        <label htmlFor="latest" className="w-24">Latest</label>
-        <input type="checkbox" id="latest" checked={filter.dateAscending} onChange={handleSortChange} />
+      <div className="text-black flex items-center">
+        <label htmlFor="latest" className="w-24">
+          Latest
+        </label>
+        <input
+          type="checkbox"
+          id="latest"
+          checked={filter.dateAscending}
+          onChange={handleSortChange}
+        />
+      </div>
+
+      {/* Sort by Popular */}
+      <div className="text-black flex items-center">
+        <label htmlFor="latest" className="w-24">
+          Popular
+        </label>
+        <input
+          type="checkbox"
+          id="latest"
+          checked={filter.dateAscending}
+          onChange={handleSortChange}
+        />
+      </div>
       </div>
 
       {/* Add Category */}
       <div className="text-black flex items-center space-x-4">
-        <label htmlFor="category" className="w-24">Category</label>
+        <label htmlFor="category" className="w-24">
+          Category
+        </label>
         <input
           type="text"
           id="category"
@@ -73,7 +97,9 @@ function FilterOptions({ onChange }: FilterOptionsProps) {
 
       {/* Set Source */}
       <div className="text-black flex items-center space-x-4">
-        <label htmlFor="source" className="w-24">Source</label>
+        <label htmlFor="source" className="w-24">
+          Source
+        </label>
         <input
           type="text"
           id="source"
